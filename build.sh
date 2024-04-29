@@ -12,6 +12,6 @@ OUTPUT_FILE="test"
 clang -g -fsanitize=address -fsanitize-coverage=trace-pc-guard -o $OUTPUT_FILE $SOURCE_FILE
 #gcc $SOURCE_FILE -o $OUTPUT_FILE
 
-ASAN_OPTIONS=coverage=1 ./triangle
+ASAN_OPTIONS=coverage=1 ./$OUTPUT_FILE
 
 ls -al
