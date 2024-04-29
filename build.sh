@@ -6,7 +6,12 @@ SOURCE_FILE="test.c"
 # 컴파일된 실행 파일의 이름 설정
 OUTPUT_FILE="test"
 
-# 컴파일 명령어 실행
-gcc $SOURCE_FILE -o $OUTPUT_FILE
 
-./$OUTPUT_FILE
+
+# 컴파일 명령어 실행
+clang -g -fsanitize=address -fsanitize-coverage=trace-pc-guard -o $OUTPUT_FILE $SOURCE_FILE
+#gcc $SOURCE_FILE -o $OUTPUT_FILE
+
+ASAN_OPTIONS=coverage=1 ./triangle
+
+ls -al
