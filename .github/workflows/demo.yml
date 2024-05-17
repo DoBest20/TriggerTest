@@ -10,14 +10,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: Get the commit message
       id: get_commit_message
       run: |
         COMMIT_MESSAGE=$(git log -1 --pretty=%B)
         echo "commit message: $COMMIT_MESSAGE"
-        echo "::save-state name=commit_message::$COMMIT_MESSAGE"
+        echo "commit_message=$COMMIT_MESSAGE" >> $GIHUB_OUTPUT
 
     - name: Check for specific commit message
       id: check_message
