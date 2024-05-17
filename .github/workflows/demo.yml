@@ -1,13 +1,38 @@
-name: GitHub Actions Demo
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-on: [push]
+name: Trigger on specific commit message
+
+on:
+  push:
+    branches:
+      - main
+
 jobs:
-  Explore-GitHub-Actions:
+  check-commit-message:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Install dependencies
-        run: sudo apt-get update && sudo apt-get install -y clang
-      - run: bash ./build.sh
-        
-    
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Get the commit message
+      id: get_commit_message
+      run: |
+        COMMIT_MESSAGE=$(git log -1 --pretty=%B)
+        echo "commit message: $COMMIT_MESSAGE"
+        echo "::set-output name=commit_message::$COMMIT_MESSAGE"
+
+    - name: Check for specific commit message
+      id: check_message
+      run: |
+        echo "Checking if commit message contains 'YOUR_TRIGGER_MESSAGE'"
+        if [[ "${{ steps.get_commit_message.outputs.commit_message }}" == *"YOUR_TRIGGER_MESSAGE"* ]]; then
+          echo "Commit message contains 'YOUR_TRIGGER_MESSAGE'"
+          echo "::set-output name=run_job::true"
+        else
+          echo "Commit message does not contain 'YOUR_TRIGGER_MESSAGE'"
+          echo "::set-output name=run_job::false"
+        fi
+
+    - name: Run job if commit message matches
+      if: steps.check_message.outputs.run_job == 'true'
+      run: |
+        echo "Running the job because the commit message matches"
+        # 여기에 실행하고 싶은 스크립트나 명령어를 추가하세요
