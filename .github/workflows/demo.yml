@@ -27,7 +27,7 @@ jobs:
         echo "Checking if commit message contains 'YOUR_TRIGGER_MESSAGE'"
         if [[ "$commit_message" == "hi" ]]; then
           echo "Commit message contains 'hi'"
-          echo "run_job=true" >> "$GITHUB_STATE"
+          echo "run_job=true" >> "$GITHUB_OUTPUT"
         else
           echo "Commit message does not contain 'hi'"
           echo "run_job=flase" >> "$GITHUB_OUTPUT"
