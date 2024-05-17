@@ -25,7 +25,7 @@ jobs:
       id: check_message
       run: |
         echo "Checking if commit message contains 'YOUR_TRIGGER_MESSAGE'"
-        if [[ "$commit_message" == "hi" ]]; then
+        if [[ "$commit_message" == *"[hi]"* ]]; then
           echo "Commit message contains 'hi'"
           echo "run_job=true" >> "$GITHUB_OUTPUT"
         else
