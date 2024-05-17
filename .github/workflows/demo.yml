@@ -40,3 +40,12 @@ jobs:
         echo "running..."
         
         # 여기에 실행하고 싶은 스크립트나 명령어를 추가하세요
+        sudo apt-get update && sudo apt-get install -y clang
+        bash ./build.sh
+          
+    - name: Archive code coverage results
+      uses: actions/upload-artifact@v4
+      with:
+        name: code-coverage-report
+        path: test.txt
+
