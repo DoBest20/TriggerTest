@@ -1,9 +1,8 @@
 #include <stdio.h>
-#include <fcntl.h>
 
 int main(){
-  FILE * fp = fopen("test.txt",wt);
-  fputs(fd,"good!");
+  FILE * fp = fopen("test.txt","wt");
+  fputs("good!",fp);
   printf("hello main\n");
   
   return 0;
