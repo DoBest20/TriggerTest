@@ -27,14 +27,16 @@ jobs:
         echo "Checking if commit message contains 'YOUR_TRIGGER_MESSAGE'"
         if [[ "$commit_message" == "hi" ]]; then
           echo "Commit message contains 'hi'"
-          echo "::save-state name=run_job::true"
+          echo "run_job=true" >> "$GITHUB_STATE"
         else
           echo "Commit message does not contain 'hi'"
-          echo "::save-state name=run_job::false"
+          echo "run_job=flase" >> "$GITHUB_STATE"
         fi
 
     - name: Run job if commit message matches
-      if: steps.check_message.outputs.run_job == 'true'
+      env:
+        run_job: ${{steps.check_message.outputs.run_job}}
+      if: run_job == 'true'
       run: |
         echo "Running the job because the commit message matches"
         echo "running..."
