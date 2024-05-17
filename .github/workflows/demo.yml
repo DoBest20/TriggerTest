@@ -17,7 +17,7 @@ jobs:
       run: |
         COMMIT_MESSAGE=$(git log -1 --pretty=%B)
         echo "commit message: $COMMIT_MESSAGE"
-        echo "commit_message=$COMMIT_MESSAGE" >> "$GIHUB_OUTPUT"
+        echo "commit_message=$COMMIT_MESSAGE" >> "$GITHUB_OUTPUT"
 
     - name: Check for specific commit message
       env:
