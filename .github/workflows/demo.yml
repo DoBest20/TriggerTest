@@ -30,12 +30,12 @@ jobs:
           echo "run_job=true" >> "$GITHUB_STATE"
         else
           echo "Commit message does not contain 'hi'"
-          echo "run_job=flase" >> "$GITHUB_STATE"
+          echo "run_job=flase" >> "$GITHUB_OUTPUT"
         fi
 
     - name: Run job if commit message matches
       env:
-        run_job: ${{steps.check_message.states.run_job}}
+        run_job: ${{steps.check_message.outputs.run_job}}
       if: $run_job == 'true'
       run: |
         echo "Running the job because the commit message matches"
