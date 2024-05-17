@@ -17,13 +17,15 @@ jobs:
       run: |
         COMMIT_MESSAGE=$(git log -1 --pretty=%B)
         echo "commit message: $COMMIT_MESSAGE"
-        echo "commit_message=$COMMIT_MESSAGE" >> $GIHUB_OUTPUT
+        echo "commit_message=$COMMIT_MESSAGE" >> "$GIHUB_OUTPUT"
 
     - name: Check for specific commit message
+      env:
+        commit_message: ${{steps.get_commit_message.outputs.commit_message}}
       id: check_message
       run: |
         echo "Checking if commit message contains 'YOUR_TRIGGER_MESSAGE'"
-        if [[ "${{ steps.get_commit_message.outputs.commit_message }}" == "hi" ]]; then
+        if [[ "$commit_message" == "hi" ]]; then
           echo "Commit message contains 'hi'"
           echo "::save-state name=run_job::true"
         else
