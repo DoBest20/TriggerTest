@@ -35,8 +35,8 @@ jobs:
 
     - name: Run job if commit message matches
       env:
-        run_job: ${{steps.check_message.outputs.run_job}}
-      if: run_job == 'true'
+        run_job: ${{steps.check_message.states.run_job}}
+      if: $run_job == 'true'
       run: |
         echo "Running the job because the commit message matches"
         echo "running..."
