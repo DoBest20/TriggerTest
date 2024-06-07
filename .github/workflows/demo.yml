@@ -10,4 +10,5 @@ jobs:
       - run: |
           python3 -m venv myenv
           source myenv/bin/activate
-          python server.py
+          pip install flask
+          python server.py &
