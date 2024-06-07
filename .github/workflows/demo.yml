@@ -12,3 +12,4 @@ jobs:
           source myenv/bin/activate
           pip install flask
           nohup python server.py &
+          disown
